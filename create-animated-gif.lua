@@ -62,7 +62,7 @@ function get_sceneitem_by_name(scene_name, source_name)
 
     local scene = get_scene_by_name(scene_name)
     -- local source = obs.obs_get_source_by_name(source_name)
-    local scene_item = obs.obs_scene_find_source(scene, source_name) -- [create-animated-gif.lua] Failed to call calldata_signal_callback for calldata_signal_callback: [string "C:/ProgramData/obs-studio/plugins/obs-gif/cre..."]:65: Error in obs_scene_find_source (arg 2), expected 'char const *' got 'struct obs_source *|obs_source_t *'
+    local scene_item = obs.obs_scene_find_source(scene, source_name)
     obs.obs_source_release(source)
     obs.obs_scene_release(scene)
 
