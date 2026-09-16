@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 -- Script: create-animated-gif.lua
 
 -- Create animated gif from your OBS recordings on the fly
@@ -61,9 +62,7 @@ end
 function get_sceneitem_by_name(scene_name, source_name)
 
     local scene = get_scene_by_name(scene_name)
-    -- local source = obs.obs_get_source_by_name(source_name)
     local scene_item = obs.obs_scene_find_source(scene, source_name)
-    obs.obs_source_release(source)
     obs.obs_scene_release(scene)
 
     return scene_item
@@ -202,7 +201,7 @@ function run_postprocessing()
         end
         log.info("Postprocessing uses " .. scene_name .. "." .. source_name .. ": section=(" .. info.pos.x .. "," .. info.pos.y .. "," .. size.x .. "," .. size.y .. ")")
 
-        obs.obs_sceneitem_release(scene_item)
+        -- obs.obs_sceneitem_release(scene_item)
 
         local dir = output_directory ~= "" and output_directory or obs.obs_frontend_get_current_record_output_path()
 
@@ -216,6 +215,7 @@ function run_postprocessing()
             tostring(postprocessing_variations),
             tostring(not postprocessing_drop_audio)
         )
+        log.info("cmd: " .. cmd)
 
         log.info("Postprocessing executing >>" .. cmd .. "<<")
         local rc = os.execute(cmd)
@@ -362,7 +362,7 @@ function on_recording_activate(cd)
 
     if postprocess_recording then
 
-        local duration = video_start + video_length + 10.0
+        local duration = video_start + video_length
         if duration < 30.0 and postprocessing_variations then
             duration = 30.0
         end
